@@ -1,0 +1,3 @@
+[submodule "fakestream"]
+	path = fakestream
+	url = https://github.com/moxious/fakestream.git

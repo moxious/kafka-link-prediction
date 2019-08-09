@@ -1,0 +1,52 @@
+version: '3'
+services:
+  neo4j:
+    image: neo4j:3.5.8-enterprise
+    hostname: klinks
+    container_name: klinks
+    ports:
+    - "7474:7474"
+    - "7687:7687"
+    volumes:
+    - $PWD/plugins:/plugins
+    environment:
+      NEO4J_dbms_logs_query_threshold: 0s
+      NEO4J_dbms_logs_query_enabled: "true"
+      NEO4J_cypher_lenient__create__relationship: "true"
+      NEO4J_apoc_trigger_enabled: "true"
+      NEO4J_dbms_security_procedures_unrestricted: "apoc.*,algo.*"
+      NEO4J_ACCEPT_LICENSE_AGREEMENT: "yes"
+      NEO4J_dbms_logs_debug_level: DEBUG
+      NEO4J_dbms_memory_heap_max__size: 2G
+      NEO4J_dbms_memory_heap_initial__size: 1G
+      NEO4J_dbms_memory_pagecache_size: 1G
+      NEO4J_AUTH: neo4j/admin
+      NEO4J_ACCEPT_LICENSE_AGREEMENT: "yes"
+      NEO4J_kafka_group_id: p2
+      NEO4J_streams_sink_topic_cypher_friends: "
+        MERGE (p1:Person { name: event.initiated }) 
+        MERGE (p2:Person { name: event.accepted }) 
+        CREATE (p1)-[:FRIENDS { when: event.date }]->(p2)
+      "
+      NEO4J_streams_sink_enabled: "true"
+      NEO4J_streams_procedures_enabled: "true"
+      NEO4J_streams_source_enabled: "false"
+      #NEO4J_streams_source_topic_nodes_recommendations: Recommendation{*}
+      #NEO4J_streams_source_schema_polling_interval: 10000
+      #NEO4J_kafka_acks: 1
+      #NEO4J_kafka_num_partitions: 1
+      #NEO4J_kafka_retries: 2
+      #NEO4J_kafka_batch_size: 16384
+      #NEO4J_kafka_buffer_memory: 33554432
+      #NEO4J_kafka_session_timeout_ms: 15000
+      #NEO4J_kafka_reindex_batch_size: 1000
+      #NEO4J_kafka_connection_timeout_ms: 10000
+      #NEO4J_kafka_replication: 1
+      #NEO4J_kafka_linger_ms: 1
+      NEO4J_kafka_ssl_endpoint_identification_algorithm: https
+      NEO4J_kafka_sasl_mechanism: PLAIN
+      NEO4J_kafka_request_timeout_ms: 20000
+      NEO4J_kafka_bootstrap_servers: ${KAFKA_BOOTSTRAP_SERVERS}
+      NEO4J_kafka_retry_backoff_ms: 500
+      NEO4J_kafka_sasl_jaas_config: org.apache.kafka.common.security.plain.PlainLoginModule required username="${CONFLUENT_API_KEY}" password="${CONFLUENT_API_SECRET}";
+      NEO4J_kafka_security_protocol: SASL_SSL
