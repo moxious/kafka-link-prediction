@@ -19,6 +19,8 @@ Set up your topics in Kafka:
 - Create a topic called "recommendations"
 - Create a topic called "friends"
 
+The "out of the box" configuration assumes you are using Confluent Cloud.
+
 Export your configuration from confluent cloud and start the Neo4j server:
 
 ``` 
@@ -28,6 +30,11 @@ export KAFKA_BOOTSTRAP_SERVERS=(your value)
 
 docker-compose up
 ```
+
+**If you are not using Confluent Cloud and running Kafka locally**
+
+Inspect docker-compose.yml, uncomment the correct section, and put in your
+configuration.
 
 ## Stream Data to Neo4j
 

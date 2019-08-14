@@ -43,6 +43,9 @@ services:
       #NEO4J_kafka_connection_timeout_ms: 10000
       #NEO4J_kafka_replication: 1
       #NEO4J_kafka_linger_ms: 1
+      #
+      # CONFLUENT CLOUD CONFIGURATION
+      # Use this block of configuration items out if you're using Confluent Cloud
       NEO4J_kafka_ssl_endpoint_identification_algorithm: https
       NEO4J_kafka_sasl_mechanism: PLAIN
       NEO4J_kafka_request_timeout_ms: 20000
@@ -50,3 +53,7 @@ services:
       NEO4J_kafka_retry_backoff_ms: 500
       NEO4J_kafka_sasl_jaas_config: org.apache.kafka.common.security.plain.PlainLoginModule required username="${CONFLUENT_API_KEY}" password="${CONFLUENT_API_SECRET}";
       NEO4J_kafka_security_protocol: SASL_SSL
+      # LOCAL KAFKA CONFIGURATION
+      # Uncomment this block of lines and configure correctly if you're using Kafka locally.
+      # NEO4J_kafka_zookeeper_connect: localhost:2181
+      # NEO4J_kafka_bootstrap_servers: localhost:9092
