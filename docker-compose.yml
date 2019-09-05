@@ -55,5 +55,6 @@ services:
       NEO4J_kafka_security_protocol: SASL_SSL
       # LOCAL KAFKA CONFIGURATION
       # Uncomment this block of lines and configure correctly if you're using Kafka locally.
-      # NEO4J_kafka_zookeeper_connect: localhost:2181
-      # NEO4J_kafka_bootstrap_servers: localhost:9092
+      # NOTE : from docker container we are assuming the Kafka broker is running on the docker host
+      # NEO4J_kafka_zookeeper_connect: host.docker.internal:2181
+      # NEO4J_kafka_bootstrap_servers: host.docker.internal:9092
