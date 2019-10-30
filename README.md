@@ -1,6 +1,6 @@
 # Kafka Link Prediction
 
-This repo contains code that supports Confluent Blog post explaining how to use
+This repo contains code that supports [Confluent Blog](https://neo4j.com/blog/streaming-graphs-combining-kafka-neo4j/?ref=social-blog) post explaining how to use
 Neo4j together with Kafka.
 
 The purpose of this code is to give a worked example of how to use the two
